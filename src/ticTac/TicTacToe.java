@@ -5,7 +5,7 @@ import java.awt.event.*;
 
 
 public class TicTacToe implements ActionListener {
-    final String VERSION = "1.0";
+    final String VERSION = "1.1";
     JFrame window = new JFrame("Крестики-нолики" + VERSION);
 
     JMenuBar mnuMain = new JMenuBar();
@@ -14,7 +14,8 @@ public class TicTacToe implements ActionListener {
             mnuExit = new JMenuItem("Выход"),
             mnuAbout = new JMenuItem("О игре");
 
-    JButton btn1v1 = new JButton("Начать новую игру друг против друга"),
+    JButton btn1v1 = new JButton("Человек против Человек"),
+            btn1vCPU = new JButton("Человек против Компьютер"),
             btnBack = new JButton("<--назад");
     JButton btnEmpty[] = new JButton[10];
 
@@ -73,6 +74,7 @@ public class TicTacToe implements ActionListener {
 
         //добавление кнопок на панель для новой игры
         pnlNewGame.add(btn1v1);
+        pnlNewGame.add(btn1vCPU);
 
         //Добавление слушателей для кнопок и пунктов меню
         mnuNewGame.addActionListener(this);
@@ -80,6 +82,7 @@ public class TicTacToe implements ActionListener {
         mnuInstruction.addActionListener(this);
         mnuAbout.addActionListener(this);
         btn1v1.addActionListener(this);
+        btn1vCPU.addActionListener(this);
         btnBack.addActionListener(this);
 
         //настройка игрового поля
@@ -154,6 +157,9 @@ public class TicTacToe implements ActionListener {
 
             }
         }
+        else if(source == btn1vCPU) {
+            JOptionPane.showMessageDialog(null, "Уже скоро будет реализовано!!");
+        }
         else if(source == mnuExit) {
             int option = JOptionPane.showConfirmDialog(null, "Вы уверенны что хотите выйти?",
                     "Завершить игру" ,JOptionPane.YES_NO_OPTION);
@@ -213,7 +219,7 @@ public class TicTacToe implements ActionListener {
                     !btnEmpty[winCombo[i][0]].getText().equals("") &&
                             btnEmpty[winCombo[i][0]].getText().equals(btnEmpty[winCombo[i][1]].getText()) &&
                             btnEmpty[winCombo[i][1]].getText().equals(btnEmpty[winCombo[i][2]].getText())
-                    ) {
+                ) {
                 win = true;
                 wonNumber1 = winCombo[i][0];
                 wonNumber2 = winCombo[i][1];
