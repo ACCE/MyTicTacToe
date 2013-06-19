@@ -5,12 +5,14 @@ import java.awt.event.*;
 
 
 public class TicTacToe implements ActionListener {
-    final String VERSION = "0.7";
+    final String VERSION = "1.0";
     JFrame window = new JFrame("Крестики-нолики" + VERSION);
 
     JMenuBar mnuMain = new JMenuBar();
     JMenuItem mnuNewGame = new JMenuItem("Новая игра"),
-            mnuExit = new JMenuItem("Выход");
+            mnuInstruction = new JMenuItem("Инструкция"),
+            mnuExit = new JMenuItem("Выход"),
+            mnuAbout = new JMenuItem("О игре");
 
     JButton btn1v1 = new JButton("Начать новую игру друг против друга"),
             btnBack = new JButton("<--назад");
@@ -65,6 +67,8 @@ public class TicTacToe implements ActionListener {
 
         //добавление пунктов меню
         mnuMain.add(mnuNewGame);
+        mnuMain.add(mnuInstruction);
+        mnuMain.add(mnuAbout);
         mnuMain.add(mnuExit);
 
         //добавление кнопок на панель для новой игры
@@ -73,6 +77,8 @@ public class TicTacToe implements ActionListener {
         //Добавление слушателей для кнопок и пунктов меню
         mnuNewGame.addActionListener(this);
         mnuExit.addActionListener(this);
+        mnuInstruction.addActionListener(this);
+        mnuAbout.addActionListener(this);
         btn1v1.addActionListener(this);
         btnBack.addActionListener(this);
 
@@ -154,6 +160,29 @@ public class TicTacToe implements ActionListener {
             if(option == JOptionPane.YES_OPTION)
                 System.exit(0);
         }
+        else if(source == mnuInstruction || source == mnuAbout) {
+            clearPanelSouth();
+            String message = "";
+            txtMessage.setBackground(new Color(color, color, color));
+            if(source == mnuInstruction) {
+                message = "Инструкция:\n\n" +
+                        "Цель игры собрать 3 крестика или нолика в ряд\n" +
+                        "(по горизонтали, вертикали или диагонали).";
+            } else {
+                message = "О приложении:\n\n" +
+                        "Название: Крестики-нолики\n" +
+                        "Автор: коллективная работа\n" +
+                        "Цель приложения: " + "получить хорошую отметку" +"\n" +
+                        "Версия: " + VERSION + "\n";
+            }
+            txtMessage.setEditable(false);
+            txtMessage.setText(message);
+            pnlSouth.setLayout(new GridLayout(2, 1, 2, 5));
+            pnlTop.add(txtMessage);
+            pnlBottom.add(btnBack);
+            pnlSouth.add(pnlTop);
+            pnlSouth.add(pnlBottom);
+        }
         else if(source == btnBack) {
             if(inGame)
                 showGame();
@@ -184,7 +213,7 @@ public class TicTacToe implements ActionListener {
                     !btnEmpty[winCombo[i][0]].getText().equals("") &&
                             btnEmpty[winCombo[i][0]].getText().equals(btnEmpty[winCombo[i][1]].getText()) &&
                             btnEmpty[winCombo[i][1]].getText().equals(btnEmpty[winCombo[i][2]].getText())
-                ) {
+                    ) {
                 win = true;
                 wonNumber1 = winCombo[i][0];
                 wonNumber2 = winCombo[i][1];
